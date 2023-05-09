@@ -43,5 +43,4 @@ git commit -m "mysql"
 
 test
 
-![img2](..\assets\img\posts\2023-05-09-17-27-22.png)
-![img3](..\assets\img\favicons\favicon-96x96.png)
+![img2](img\2023-05-09-17-27-22.png)
