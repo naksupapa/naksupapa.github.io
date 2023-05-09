@@ -1,5 +1,5 @@
 ---
-title: visual code 에서 git commit 버튼을 누를때, Make sure you configure your "user.name" and "user.email" in git 이라는 오류가 출력 됩니다. 이걸 해결 하기 위해 어떻게 해야 합니까?
+title:  show error visual code, git commit click,Make sure you configure your user.name and user.email in git
 author: naksupapa
 date: 2023-05-09 00:00:00 +0900
 categories: [github]
