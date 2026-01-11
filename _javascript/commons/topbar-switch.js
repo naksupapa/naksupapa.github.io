@@ -53,17 +53,23 @@ $(function() {
     lastScrollTop = st;
   }
 
+  let ticking = false;
+
   $(window).scroll(function(event) {
     if ($("#topbar-title").is(":hidden")) {
       didScroll = true;
+
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     }
   });
-
-  setInterval(function() {
-    if (didScroll) {
-      hasScrolled();
-      didScroll = false;
-    }
-  }, 250);
 
 });

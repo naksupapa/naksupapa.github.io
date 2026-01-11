@@ -1,8 +1,8 @@
 <!--
-  mermaid-js loader
+  mermaid-js loader (v10.x)
 -->
 
-<script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
 <script>
   $(function() {
@@ -16,18 +16,17 @@
           return;
         }
 
-        let expectedTheme = (mode === ModeToggle.DARK_MODE? "dark" : "default");
-        let config = { theme: expectedTheme };
+        let expectedTheme = (mode === ModeToggle.DARK_MODE ? "dark" : "default");
 
-        /* Re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */
+        /* Re-render the SVG */
         $(".mermaid").each(function() {
           let svgCode = $(this).prev().children().html();
           $(this).removeAttr("data-processed");
           $(this).html(svgCode);
         });
 
-        mermaid.initialize(config);
-        mermaid.init(undefined, ".mermaid");
+        mermaid.initialize({ startOnLoad: false, theme: expectedTheme });
+        mermaid.run({ nodes: document.querySelectorAll(".mermaid") });
       }
     }
 
@@ -35,11 +34,12 @@
 
     if ($("html[mode=dark]").length > 0
       || ($("html[mode]").length == 0
-        && window.matchMedia("(prefers-color-scheme: dark)").matches ) ) {
+        && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
       initTheme = "dark";
     }
 
     let mermaidConf = {
+      startOnLoad: false,
       theme: initTheme  /* <default|dark|forest|neutral> */
     };
 
@@ -47,10 +47,11 @@
     $("pre").has("code.language-mermaid").each(function() {
       let svgCode = $(this).children().html();
       $(this).addClass("unloaded");
-      $(this).after(`<div class=\"mermaid\">${svgCode}</div>`);
+      $(this).after(`<div class="mermaid">${svgCode}</div>`);
     });
 
     mermaid.initialize(mermaidConf);
+    mermaid.run({ nodes: document.querySelectorAll(".mermaid") });
 
     window.addEventListener("message", updateMermaid);
   });

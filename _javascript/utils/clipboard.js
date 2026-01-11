@@ -103,15 +103,25 @@ $(function() {
       return;
     }
 
-    // Copy URL to clipboard
-
+    // Copy URL to clipboard using modern Clipboard API
     const url = window.location.href;
-    const $temp = $("<input>");
 
-    $("body").append($temp);
-    $temp.val(url).select();
-    document.execCommand("copy");
-    $temp.remove();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).catch(function() {
+        // Fallback for older browsers
+        fallbackCopyToClipboard(url);
+      });
+    } else {
+      fallbackCopyToClipboard(url);
+    }
+
+    function fallbackCopyToClipboard(text) {
+      const $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(text).select();
+      document.execCommand("copy");
+      $temp.remove();
+    }
 
     // Switch tooltip title
 

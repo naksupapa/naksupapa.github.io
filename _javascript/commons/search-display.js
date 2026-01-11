@@ -117,7 +117,7 @@ $(function() {
   });
 
   input.on("keyup", function(e) {
-    if (e.keyCode === 8 && input.val() === "") {
+    if (e.key === 'Backspace' && input.val() === "") {
       if (!isMobileView()) {
         resultSwitch.off();
       } else {
